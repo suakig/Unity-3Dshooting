@@ -27,6 +27,8 @@ public class Gun : MonoBehaviour
     public float coolTime = 0.5f;                   //クールタイム
     public float intervalTime = 0.1f;               //パルスの発射間隔
 
+    [System.NonSerialized] public GameObject whoMake;     //誰が作成したのか
+
     private TimeDo reloadTimeDo;    //リロードの命令
     private TimeDo coolTimeDo;      //クールタイムの命令
     private TimeDo intervalTimeDo;  //パルスの発射命令
@@ -204,7 +206,7 @@ public class Gun : MonoBehaviour
     private void CreateBullet()
     {
         GameObject bullet = Instantiate (bulletPrefab) as GameObject;
-        bullet.GetComponent<Bullet>().Init (this.gameObject);
+        bullet.GetComponent<Bullet> ().Init (this.gameObject, whoMake);
     }
 
     /// <summary>
