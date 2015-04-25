@@ -13,18 +13,18 @@ public class Bullet : MonoBehaviour
 
     public virtual void Start()
     {
-        this.rigidbody.velocity = this.transform.forward * speed;
+        this.GetComponent<Rigidbody>().velocity = this.transform.forward * speed;
     }
 
     /// <summary>
     /// 初期化
     /// </summary>
     /// <param name="gun">Gun.</param>
-    public virtual void Init(GameObject gun, GameObject whoMake)
+    public virtual void Init(Transform gunBattery, GameObject whoMake)
     {
         this.name = this.GetType ().Name;
-        this.transform.rotation = gun.transform.rotation;
-        this.transform.position = gun.transform.position;
+        this.transform.rotation = gunBattery.rotation;
+        this.transform.position = gunBattery.position;
         Destroy (this.gameObject, deleteTime);
         this.transform.parent = Stage.Instance.transform;
 

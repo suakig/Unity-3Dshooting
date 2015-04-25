@@ -7,7 +7,7 @@ public class Homing : Bullet
 
     public override void Start()
     {
-        this.rigidbody.velocity = this.transform.forward * speed;
+        this.GetComponent<Rigidbody>().velocity = this.transform.forward * speed;
     }
 
     void FixedUpdate()
@@ -17,7 +17,7 @@ public class Homing : Bullet
             HomingRotation ();
         }
 
-        this.rigidbody.velocity = this.transform.forward * this.rigidbody.velocity.magnitude;
+        this.GetComponent<Rigidbody>().velocity = this.transform.forward * this.GetComponent<Rigidbody>().velocity.magnitude;
     }
 
     /// <summary>
@@ -41,7 +41,7 @@ public class Homing : Bullet
         {
             // ターゲットが回転角の外なら、指定角度だけターゲットに向ける
             float t = (angleAdd / angleDiff);
-            this.rigidbody.rotation = Quaternion.Slerp (transform.rotation, rotTarget, t);
+            this.GetComponent<Rigidbody>().rotation = Quaternion.Slerp (transform.rotation, rotTarget, t);
         }
     }
 }

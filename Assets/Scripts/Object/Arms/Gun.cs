@@ -19,15 +19,15 @@ public class Gun : MonoBehaviour
         Call  = 16  //スクリプト命令で発射
     };
 
+    [System.NonSerialized] public GameObject whoEquip;                     //
     public InputType inputType = InputType.Hover;   //発射入力タイプ
     public GameObject bulletPrefab;                 //発射するオブジェクト
+    public Transform[] gunBatteryList;              //発射砲台リスト
     public int maxMmagazine = 5;                    //マガジンの段数 なくなるとリロード
     public int maxPulse = 3;                        //一回ボタンを押すと生成される回数
     public float reloadTime = 2.0f;                 //リロード時間
     public float coolTime = 0.5f;                   //クールタイム
     public float intervalTime = 0.1f;               //パルスの発射間隔
-
-    [System.NonSerialized] public GameObject whoMake;     //誰が作成したのか
 
     private TimeDo reloadTimeDo;    //リロードの命令
     private TimeDo coolTimeDo;      //クールタイムの命令
@@ -205,8 +205,10 @@ public class Gun : MonoBehaviour
     /// </summary>
     private void CreateBullet()
     {
-        GameObject bullet = Instantiate (bulletPrefab) as GameObject;
-        bullet.GetComponent<Bullet> ().Init (this.gameObject, whoMake);
+        foreach (Transform gunBattery in gunBatteryList) {
+            GameObject bullet = Instantiate (bulletPrefab) as GameObject;
+            bullet.GetComponent<Bullet> ().Init (gunBattery, whoEquip);
+        }
     }
 
     /// <summary>
